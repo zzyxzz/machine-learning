@@ -14,7 +14,8 @@ return:    predicted class label
 def knn(inX, dataset, labels, k, norm = False):
     dataset_size = dataset.shape[0]
     if norm:
-        dataset = normalisation(dataset)
+        dataset, ranges, min_values = normalisation(dataset)
+        inX = (inX - min_values) / ranges
 
     #calculate distance
     diff_values = np.tile(inX, (dataset_size,1)) - dataset
@@ -44,7 +45,7 @@ def normalisation(dataset):
     feature_ranges = max_values - min_values
     norm_dataset = diff_dataset/np.tile(feature_ranges, (dataset_size,1))
 
-    return norm_dataset
+    return norm_dataset, feature_ranges, min_values
     
 
 #==============
@@ -55,6 +56,7 @@ if __name__ == '__main__':
             [0, 0],
             [0, 0.1]])
     labels = ['A','A','B','B']
-    label = knn([0,0], group, labels, 3)
-    print normalisation(group)
+    label = knn([0,0], group, labels, 3, True)
+    data = normalisation(group)
+    print data
     print label
