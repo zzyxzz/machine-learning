@@ -6,7 +6,7 @@ K-nearest neighbour
 
 input:     inX: input vector for classification 1xN (N features)
            dataset(numpy array): existing and known vectors MxN (N features)
-           labels: dataset labels 1xN
+           labels: dataset labels 1xM
            k: number of neighbours (should be odd number)
 return:    predicted class label
 '''
